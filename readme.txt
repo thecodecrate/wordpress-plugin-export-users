@@ -3,7 +3,7 @@ Contributors: loureirorg
 Tags: users, export
 Requires at least: 4.5
 Tested up to: 5.2.2
-Stable tag: 0.1.0
+Stable tag: 0.1.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -31,5 +31,12 @@ Yes.
 
 == Changelog ==
 
-= 1.0 =
+= 0.1.2 =
+* Code Refactoring: Replaces the "router" implementation (an implementation that intercepts ALL http requests) with a "admin_post_{$action}" one. It reduces the code size and the code also becomes more WP-like and clear.
+* Code Refactoring II: Avoids potential conflict with other plugins by changing the action name from a generic "export-users" to "uewm_export_users".
+
+= 0.1.1 =
+* Adding an icon for this plugin.
+
+= 0.1.0 =
 * First Version.

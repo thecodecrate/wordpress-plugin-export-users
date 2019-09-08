@@ -26,7 +26,7 @@ class User_Export_With_Meta {
 		add_action( 'admin_menu', [ $this, 'admin_menu_callback' ] );
 
 		/** Router. */
-		add_action( 'admin_init', [ $this, 'router_callback' ] );
+		add_action( 'admin_post_' . self::SLUG . '_export_users', [ $this, 'generate_csv_callback' ] );
 
 		/** Settings page: Register sections for the settings page. */
 		add_action( 'admin_init', [ $this, 'settings_page_register_sections_callback' ] );
@@ -231,49 +231,21 @@ class User_Export_With_Meta {
 	}
 
 	/**
-	 * Router. Activated on "admin_init", intercept all HTTP requests.
+	 * Called on form submit.
 	 */
-	public function router_callback() {
-		/** Get HTTP arguments. */
-		$arg_action = empty( $_REQUEST['action'] ) ? null : wp_unslash( $_REQUEST['action'] );
-		$arg_page   = empty( $_REQUEST['page'] ) ? null : wp_unslash( $_REQUEST['page'] );
-		$arg_nonce  = empty( $_REQUEST['uewm_nonce'] ) ? null : wp_unslash( $_REQUEST['uewm_nonce'] );
+	public function generate_csv_callback() {
+		/** HTTP Arguments. */
+		$arg_roles   = empty( $_REQUEST[ self::SLUG . '_roles' ] ) ? null : wp_unslash( $_REQUEST[ self::SLUG . '_roles' ] );
+		$arg_columns = empty( $_REQUEST[ self::SLUG . '_columns' ] ) ? null : wp_unslash( $_REQUEST[ self::SLUG . '_columns' ] );
 
-		/** Our enpoints have action AND page set up. */
-		if ( ! $arg_action || ! $arg_page ) {
-			return;
-		}
+		/** Save options. */
+		update_option( self::SLUG . '_roles', $arg_roles ?? '' );
+		update_option( self::SLUG . '_columns', $arg_columns ?? '' );
 
-		/** Check if is our plugin. */
-		if ( 'uewm' !== $arg_page ) {
-			return;
-		}
-
-		/** Check permissions. */
-		if ( ! is_admin() ) {
-			return;
-		}
-
-		/** Check nonce. */
-		if ( ! $arg_nonce || ! wp_verify_nonce( $arg_nonce, 'export-users' ) ) {
-			return;
-		}
-
-		/** The Router. */
-		if ( 'export-users' === $arg_action ) {
-			/** HTTP Arguments. */
-			$arg_roles   = empty( $_REQUEST[ self::SLUG . '_roles' ] ) ? null : wp_unslash( $_REQUEST[ self::SLUG . '_roles' ] );
-			$arg_columns = empty( $_REQUEST[ self::SLUG . '_columns' ] ) ? null : wp_unslash( $_REQUEST[ self::SLUG . '_columns' ] );
-
-			/** Save options. */
-			update_option( self::SLUG . '_roles', $arg_roles ?? '' );
-			update_option( self::SLUG . '_columns', $arg_columns ?? '' );
-
-			/** Output. */
-			$roles = $arg_roles ?: []; /** Empty = all. */
-			$users = get_users( [ 'role__in' => $roles ] );
-			$this->export_users( $users );
-		}
+		/** Output. */
+		$roles = $arg_roles ?: []; /** Empty = all. */
+		$users = get_users( [ 'role__in' => $roles ] );
+		$this->export_users( $users );
 	}
 
 	/**
@@ -347,11 +319,11 @@ class User_Export_With_Meta {
 		?>
 		<div class="wrap">
 			<h2>Export Users to CSV</h2>
-			<form method="post" action="admin.php?page=<?php echo esc_attr( self::SLUG ); ?>&action=export-users">
+			<form method="post" action="admin-post.php?page=<?php echo esc_attr( self::SLUG ); ?>&action=<?php echo self::SLUG . '_export_users'; ?>">
 				<?php settings_fields( self::SLUG ); ?>
-				<?php $nonce = wp_create_nonce( 'export-users' ); ?>
+				<?php $nonce = wp_create_nonce( self::SLUG . '_export_users' ); ?>
 				<input type="hidden" name="uewm_nonce" value="<?php echo esc_attr( $nonce ); ?>">
-				<input type="hidden" name="action" value="export-users">
+				<input type="hidden" name="action" value="<?php echo self::SLUG . '_export_users'; ?>">
 				<?php do_settings_sections( self::SLUG ); ?>
 				<?php submit_button( 'Save and Export' ); ?>
 			</form>
