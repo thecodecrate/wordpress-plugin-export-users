@@ -3,7 +3,7 @@ Contributors: loureirorg
 Tags: users, export
 Requires at least: 4.5
 Tested up to: 5.2.2
-Stable tag: 0.1.2
+Stable tag: 0.1.4
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -30,6 +30,12 @@ Yes.
 1. Exporting users.
 
 == Changelog ==
+
+= 0.1.4 =
+* Version bump.
+
+= 0.1.3 =
+* Version bump.
 
 = 0.1.2 =
 * Code Refactoring: Replaces the "router" implementation (an implementation that intercepts ALL http requests) with a "admin_post_{$action}" one. It reduces the code size and the code also becomes more WP-like and clear.
