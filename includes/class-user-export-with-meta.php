@@ -25,7 +25,7 @@ class User_Export_With_Meta {
 		/** Add menu item: Step 1/3 - Listen to the event. */
 		add_action( 'admin_menu', [ $this, 'admin_menu_callback' ] );
 
-		/** Router. */
+		/** Fired on "Save and Export" button. */
 		add_action( 'admin_post_' . self::SLUG . '_export_users', [ $this, 'generate_csv_callback' ] );
 
 		/** Settings page: Register sections for the settings page. */
@@ -184,6 +184,7 @@ class User_Export_With_Meta {
 	 * @return void
 	 */
 	public function admin_menu_callback() {
+		/** Add menu item to the "Users" menu. */
 		$page_title = 'Export Users to CSV';
 		$menu_title = 'Export to CSV';
 		$capability = 'manage_options'; // who can see and access.
