@@ -3,7 +3,7 @@ Contributors: loureirorg
 Tags: users, export
 Requires at least: 4.5
 Tested up to: 5.2.2
-Stable tag: 0.1.4
+Stable tag: 0.1.6
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -30,6 +30,12 @@ Yes.
 1. Exporting users.
 
 == Changelog ==
+
+= 0.1.6 =
+* PHP 5.6 Compatibillity: Removing PHP7 operators ?? and ?:.
+
+= 0.1.5 =
+* Security: Only users with the "list_users" permission can generate CSV. Before, any user with "manage_options" could (i.e. any admin user with permission to change settings).
 
 = 0.1.4 =
 * Version bump.

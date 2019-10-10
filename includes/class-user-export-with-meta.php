@@ -85,7 +85,7 @@ class User_Export_With_Meta {
 	 */
 	public function settings_page_register_sections_callback() {
 		/** Check permissions. */
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'list_users' ) ) {
 			return;
 		}
 
@@ -187,7 +187,7 @@ class User_Export_With_Meta {
 		/** Add menu item to the "Users" menu. */
 		$page_title = 'Export Users to CSV';
 		$menu_title = 'Export to CSV';
-		$capability = 'manage_options'; // who can see and access.
+		$capability = 'list_users'; // who can see and access.
 		$callback   = [ $this, 'settings_page_html' ];
 		$hookname   = add_users_page( $page_title, $menu_title, $capability, self::SLUG, $callback );
 
@@ -239,12 +239,25 @@ class User_Export_With_Meta {
 		$arg_roles   = empty( $_REQUEST[ self::SLUG . '_roles' ] ) ? null : wp_unslash( $_REQUEST[ self::SLUG . '_roles' ] );
 		$arg_columns = empty( $_REQUEST[ self::SLUG . '_columns' ] ) ? null : wp_unslash( $_REQUEST[ self::SLUG . '_columns' ] );
 
+		/** Check nonce. */
+		if ( empty( $_REQUEST['_wpnonce'] ) ) {
+			return;
+		}
+		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], '_wpnonce' ) ) {
+			return;
+		}
+
+		/** Check permissions. */
+		if ( ! is_admin() || ! current_user_can( 'list_users' ) ) {
+			return;
+		}
+
 		/** Save options. */
-		update_option( self::SLUG . '_roles', $arg_roles ?? '' );
-		update_option( self::SLUG . '_columns', $arg_columns ?? '' );
+		update_option( self::SLUG . '_roles', isset( $arg_roles ) ? $arg_roles : '' );
+		update_option( self::SLUG . '_columns', isset( $arg_columns ) ? $arg_columns : '' );
 
 		/** Output. */
-		$roles = $arg_roles ?: []; /** Empty = all. */
+		$roles = $arg_roles ? $arg_roles : []; /** Empty = all. */
 		$users = get_users( [ 'role__in' => $roles ] );
 		$this->export_users( $users );
 	}
@@ -279,7 +292,8 @@ class User_Export_With_Meta {
 		$hnd = fopen( 'php://output', 'w' );
 
 		/** Selected columns (Empty = all). */
-		$columns = get_option( self::SLUG . '_columns' ) ?: $all_column_names;
+		$columns = get_option( self::SLUG . '_columns' );
+		$columns = $columns ? $columns : $all_column_names;
 
 		/** Do not export these. */
 		$columns = array_diff(
@@ -320,10 +334,9 @@ class User_Export_With_Meta {
 		?>
 		<div class="wrap">
 			<h2>Export Users to CSV</h2>
-			<form method="post" action="admin-post.php?page=<?php echo esc_attr( self::SLUG ); ?>&action=<?php echo self::SLUG . '_export_users'; ?>">
-				<?php settings_fields( self::SLUG ); ?>
-				<?php $nonce = wp_create_nonce( self::SLUG . '_export_users' ); ?>
-				<input type="hidden" name="uewm_nonce" value="<?php echo esc_attr( $nonce ); ?>">
+			<form method="post" action="admin-post.php">
+				<?php $nonce = wp_create_nonce( '_wpnonce' ); ?>
+				<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( $nonce ); ?>">
 				<input type="hidden" name="action" value="<?php echo self::SLUG . '_export_users'; ?>">
 				<?php do_settings_sections( self::SLUG ); ?>
 				<?php submit_button( 'Save and Export' ); ?>
