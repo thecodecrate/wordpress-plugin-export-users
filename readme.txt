@@ -3,7 +3,7 @@ Contributors: loureirorg
 Tags: users, export
 Requires at least: 4.5
 Tested up to: 5.2.2
-Stable tag: 0.1.6
+Stable tag: 0.1.7
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -11,7 +11,7 @@ Export Users to CSV file (with their meta data).
 
 == Description ==
 
-This plugin exports all your users to a CSV file. It exports the user's meta data too. This means it works with WooCommerce and other plugins that store extra information on the users table.
+A very simple plugin to export users to a CSV file. It exports the user's meta data too. This means it works with WooCommerce and other plugins that store extra information on the users table.
 
 == Installation ==
 
@@ -30,6 +30,9 @@ Yes.
 1. Exporting users.
 
 == Changelog ==
+
+= 0.1.7 =
+* Fix performance issue. The "get_all_user_field_names()" method is running on ALL admin pages. This bugfix restricts this method to the export page only. See https://wordpress.org/support/topic/slow-query-get-all-users-on-each-page/
 
 = 0.1.6 =
 * PHP 5.6 Compatibillity: Removing PHP7 operators ?? and ?:.

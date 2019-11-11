@@ -7,7 +7,7 @@
  * Author URI:      https://learnwithdaniel.com/
  * Text Domain:     uewm
  * Domain Path:     /languages
- * Version:         0.1.6
+ * Version:         0.1.7
  *
  * @package         User_Export_With_Meta
  */

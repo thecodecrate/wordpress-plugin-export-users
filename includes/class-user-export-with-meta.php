@@ -27,9 +27,6 @@ class User_Export_With_Meta {
 
 		/** Fired on "Save and Export" button. */
 		add_action( 'admin_post_' . self::SLUG . '_export_users', [ $this, 'generate_csv_callback' ] );
-
-		/** Settings page: Register sections for the settings page. */
-		add_action( 'admin_init', [ $this, 'settings_page_register_sections_callback' ] );
 	}
 
 	/**
@@ -193,6 +190,9 @@ class User_Export_With_Meta {
 
 		/** Load scripts/styles for this menu page. */
 		add_action( 'load-' . $hookname, [ $this, 'load_admin_js_css' ] );
+
+		/** Settings page: Register sections for the settings page. */
+		add_action( 'load-' . $hookname, [ $this, 'settings_page_register_sections_callback' ] );
 	}
 
 	/**
