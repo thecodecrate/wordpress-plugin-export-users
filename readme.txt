@@ -2,8 +2,8 @@
 Contributors: loureirorg
 Tags: users, export
 Requires at least: 4.5
-Tested up to: 5.2.2
-Stable tag: 0.1.7
+Tested up to: 5.3
+Stable tag: 0.1.8
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -30,6 +30,10 @@ Yes.
 1. Exporting users.
 
 == Changelog ==
+
+= 0.1.8 =
+* New Feature: It is now possible to specify a field separator (; or , for instance), and a text qualifier (" or nothing, for instance).
+* Tested on WordPress 5.3 version
 
 = 0.1.7 =
 * Fix performance issue. The "get_all_user_field_names()" method is running on ALL admin pages. This bugfix restricts this method to the export page only. See https://wordpress.org/support/topic/slow-query-get-all-users-on-each-page/
