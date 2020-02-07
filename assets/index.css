@@ -1,0 +1,12 @@
+.uewm_form h2 {
+    display: none;
+}
+
+#uewm_custom_csv_settings,
+#uewm_custom_csv_settings + table {
+    display: none;
+}
+
+.width_150 {
+    min-width: 150px;
+}

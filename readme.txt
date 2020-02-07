@@ -3,7 +3,7 @@ Contributors: loureirorg
 Tags: users, export
 Requires at least: 4.5
 Tested up to: 5.3
-Stable tag: 0.1.8
+Stable tag: 0.2.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -30,6 +30,12 @@ Yes.
 1. Exporting users.
 
 == Changelog ==
+
+= 0.2.0 =
+* Code completely refactored. Users shouldn't notice any change.
+
+= 0.1.9 =
+* Bugfix: Missing js/css files.
 
 = 0.1.8 =
 * New Feature: It is now possible to specify a field separator (; or , for instance), and a text qualifier (" or nothing, for instance).
