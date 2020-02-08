@@ -144,6 +144,17 @@ class Main extends Singleton {
 					],
 				],
 			],
+			// [
+			// 	'id'     => 'advanced',
+			// 	'title'  => 'Advanced Options',
+			// 	'fields' => [
+			// 		[
+			// 			'type'  => 'checkbox',
+			// 			'id'    => 'utf8_without_bom',
+			// 			'title' => 'UTF-8 without BOM. <br><i>Check this if you are experiencing issues with weird characters at the beginning of the file.</i>',
+			// 		],
+			// 	],
+			// ],
 		];
 		return $settings;
 	}
@@ -157,8 +168,8 @@ class Main extends Singleton {
 		$this->service_wp->update_options( $this->get_settings() );
 
 		/** Generate CSV. */
-		$arg_roles           = get_option( self::SLUG . '_roles' );
-		$roles               = $arg_roles ? $arg_roles : []; /** Empty = all. */
+		$roles               = get_option( self::SLUG . '_roles' );
+		$roles               = $roles ? $roles : []; /** Empty = all. */
 		$users               = get_users( [ 'role__in' => $roles ] );
 		$columns             = get_option( self::SLUG . '_columns' );
 		$has_custom_settings = get_option( self::SLUG . '_use_custom_csv_settings' );
@@ -166,9 +177,11 @@ class Main extends Singleton {
 		$custom_delimiter    = get_option( self::SLUG . '_custom_field_separator' );
 		$enclosure           = get_option( self::SLUG . '_text_qualifier' );
 		$custom_enclosure    = get_option( self::SLUG . '_custom_text_qualifier' );
+		// $utf8_without_bom    = get_option( self::SLUG . '_utf8_without_bom' );
 
 		/** Convert "yes"/"no" to boolean. Compatibility: data saved with version 0.1.9 and below is "1"/"0". */
 		$has_custom_settings = 'yes' === $has_custom_settings || '1' === $has_custom_settings;
+		// $utf8_without_bom    = 'yes' === $utf8_without_bom || '1' === $utf8_without_bom;
 
 		/** Get (1) an assoc array with users data, (2) all column names. */
 		$all_column_names = [];
@@ -212,7 +225,7 @@ class Main extends Singleton {
 		/**
 		 * Output to browser and quit.
 		 */
-		$this->service_csv->output_csv( $columns, $all_user_rows, $delimiter_char, $enclosure_char );
+		$this->service_csv->output_csv( $columns, $all_user_rows, $delimiter_char, $enclosure_char, true );
 	}
 
 }

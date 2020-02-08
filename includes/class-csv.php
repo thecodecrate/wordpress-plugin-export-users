@@ -44,8 +44,9 @@ class CSV {
 	 *
 	 * @return void
 	 */
-	public function output_csv( $columns, $data, $delimiter_char = null, $enclosure_char = null ) {
+	public function output_csv( $columns, $data, $delimiter_char = null, $enclosure_char = null, $utf8_without_bom ) {
 		/** Set HTTP headers to download mode. */
+		header( 'Content-Encoding: UTF-8' );
 		header( 'Content-Type: text/csv; charset=UTF-8' );
 		header( 'Content-Disposition: attachment; filename=' . date( 'Y-m-d-H-i' ) . '-users.csv' );
 		header( 'Pragma: no-cache' );
@@ -53,6 +54,11 @@ class CSV {
 
 		/** Open file for writing. */
 		$hnd = fopen( 'php://output', 'w' );
+
+		/** UTF8 BOM. */
+		if ( false === $utf8_without_bom ) {
+			fwrite( $hnd, "\xEF\xBB\xBF" );
+		}
 
 		/** Default delimiter / enclosure */
 		if ( null === $delimiter_char ) {
@@ -83,6 +89,7 @@ class CSV {
 		if ( array_key_exists( $enclosure_char, $enclosure_options ) ) {
 			$enclosure_char = $enclosure_options[ $enclosure_char ];
 		}
+
 
 		/** Output header. */
 		fputcsv( $hnd, $columns, $delimiter_char, $enclosure_char );

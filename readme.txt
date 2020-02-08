@@ -3,7 +3,7 @@ Contributors: loureirorg
 Tags: users, export
 Requires at least: 4.5
 Tested up to: 5.3
-Stable tag: 0.2.0
+Stable tag: 0.3.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -30,6 +30,21 @@ Yes.
 1. Exporting users.
 
 == Changelog ==
+
+= 0.3.0 =
+* [Minor] Better UTF-8 support: Adds a BOM character at the beginning of the file.
+
+= 0.2.4 =
+* Code completely refactored. Users shouldn't notice any change.
+
+= 0.2.3 =
+* Testing.
+
+= 0.2.2 =
+* Testing.
+
+= 0.2.1 =
+* Testing.
 
 = 0.2.0 =
 * Code completely refactored. Users shouldn't notice any change.

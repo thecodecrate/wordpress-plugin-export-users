@@ -7,7 +7,7 @@
  * Author URI:      https://learnwithdaniel.com/
  * Text Domain:     uewm
  * Domain Path:     /languages
- * Version:         0.2.0
+ * Version:         0.3.0
  *
  * This file is a generic autoloader.
  * The entrypoint for this plugin is on "includes/class-main.php".
