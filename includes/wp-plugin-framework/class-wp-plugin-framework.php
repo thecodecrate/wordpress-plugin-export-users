@@ -347,7 +347,7 @@ class WPPluginFramework extends Singleton {
 						value="0"
 					/>';
 				echo '<input
-						' . ( $saved_value ? 'checked' : '' ) . '
+						' . ( 'yes' === $saved_value ? 'checked' : '' ) . '
 						type="' . esc_attr( $arguments['type'] ) . '"
 						name="' . esc_attr( $field_name ) . '"
 						value="1"
