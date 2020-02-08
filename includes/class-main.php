@@ -7,7 +7,6 @@
  * * [ ] Fix PHPMD/PHPCS issues on files;
  * * [ ] Create unit tests for files in the "includes" folder;
  * * [ ] Use custom SQL to get all columns;
- * * [ ] UTF8 (BOM) issue (see WordPress plugin's issues);
  *
  * @package UserExportWithMeta
  */
