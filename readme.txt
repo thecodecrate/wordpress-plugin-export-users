@@ -3,7 +3,7 @@ Contributors: loureirorg
 Tags: users, export
 Requires at least: 4.5
 Tested up to: 5.3
-Stable tag: 0.3.1
+Stable tag: 0.4.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -30,6 +30,9 @@ Yes.
 1. Exporting users.
 
 == Changelog ==
+
+= 0.4.0 =
+* [Minor] Plugin code refactored.
 
 = 0.3.1 =
 * [Bugfix] Not saving checkbox (bug introduced on version 0.2).

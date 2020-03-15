@@ -7,7 +7,7 @@
  * Author URI:      https://learnwithdaniel.com/
  * Text Domain:     uewm
  * Domain Path:     /languages
- * Version:         0.3.1
+ * Version:         0.4.0
  *
  * This file is a generic autoloader.
  * The entrypoint for this plugin is on "includes/class-main.php".
@@ -72,6 +72,12 @@ function autoloader( $class_path ) {
  * @return String The $input converted to snake_case.
  */
 function pascal_to_snake_case( $input ) {
+	/** Input is on snake_case: exits forcing a lowercase. */
+	if ( strpos( $input, '_' ) ) {
+		return strtolower( $input );
+	}
+
+	/** Input is not on snake_case. Do conversion. */
 	preg_match_all( '!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches );
 	$ret = $matches[0];
 	foreach ( $ret as &$match ) {
@@ -84,4 +90,6 @@ function pascal_to_snake_case( $input ) {
 spl_autoload_register( implode( '\\', [ __NAMESPACE__, 'autoloader' ] ) );
 
 /** Create our plugin instance. */
-Main::get_instance();
+if ( ! class_exists( 'Main' ) ) {
+	new Main();
+}
