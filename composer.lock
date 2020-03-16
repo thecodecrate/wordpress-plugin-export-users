@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ece4d155e2d25f3213f8cce2139806c",
+    "content-hash": "f74daffc009afbc280164e09f11a9156",
     "packages": [
         {
             "name": "automattic/jetpack-constants",
@@ -38,16 +38,16 @@
         },
         {
             "name": "loureirorg/settings-as-woocommerce",
-            "version": "v0.0.2",
+            "version": "0.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/loureirorg/settings-as-woocommerce.git",
-                "reference": "f149fb66dc4c08df35f3bf93cfeba01823e041ec"
+                "reference": "b7840fc911f0874e9c37ff5e11454de2b4fbd6c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loureirorg/settings-as-woocommerce/zipball/f149fb66dc4c08df35f3bf93cfeba01823e041ec",
-                "reference": "f149fb66dc4c08df35f3bf93cfeba01823e041ec",
+                "url": "https://api.github.com/repos/loureirorg/settings-as-woocommerce/zipball/b7840fc911f0874e9c37ff5e11454de2b4fbd6c3",
+                "reference": "b7840fc911f0874e9c37ff5e11454de2b4fbd6c3",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
                 }
             ],
             "description": "Create WordPress settings pages for your plugin on WooCommerce style.",
-            "time": "2020-03-15T23:51:42+00:00"
+            "time": "2020-03-16T00:26:29+00:00"
         }
     ],
     "packages-dev": [

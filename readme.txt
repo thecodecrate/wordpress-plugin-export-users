@@ -3,7 +3,7 @@ Contributors: loureirorg
 Tags: users, export
 Requires at least: 4.5
 Tested up to: 5.3
-Stable tag: 0.4.0
+Stable tag: 0.4.1
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -30,6 +30,9 @@ Yes.
 1. Exporting users.
 
 == Changelog ==
+
+= 0.4.1 =
+* [Bugfix] Page title is not showing on some WP versions since last update.
 
 = 0.4.0 =
 * [Minor] Plugin code refactored.

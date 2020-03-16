@@ -3,6 +3,6 @@
         "phpunit/phpunit": "7"
     },
     "require": {
-        "loureirorg/settings-as-woocommerce": "v0.0.2"
+        "loureirorg/settings-as-woocommerce": "~0.0.3"
     }
 }
