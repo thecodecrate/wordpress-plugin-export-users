@@ -117,6 +117,14 @@ class SettingsPage extends Tab {
 				'text_title' => 'Define it here: ',
 			),
 			array(
+				'type' => 'hidden',
+				'id'   => 'uewm_custom_field_separator',
+			),
+			array(
+				'type' => 'hidden',
+				'id'   => 'uewm_custom_text_qualifier',
+			),
+			array(
 				'type' => 'sectionend',
 				'id'   => 'custom-delimiter-section-end',
 			),
