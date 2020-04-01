@@ -12,11 +12,11 @@ use SettingsAsWoocommerce\Tab;
 class SettingsPage extends Tab {
 
 	/**
-	 * Module User.
+	 * Model User.
 	 *
 	 * @var WPUsers
 	 */
-	public $service_users;
+	public $users;
 
 	/**
 	 * Constructor.
@@ -25,8 +25,8 @@ class SettingsPage extends Tab {
 		$this->id    = 'tab1';
 		$this->label = 'Export Users to CSV';
 
-		/** Modules. */
-		$this->service_users = new WPUsers();
+		/** Code for dealing with User records is on a separated class. */
+		$this->users = new WPUsers();
 
 		/** Add custom field type. */
 		add_action( 'uewm_settings_admin_field_select_with_text', array( $this, 'select_with_text' ) );
@@ -65,14 +65,14 @@ class SettingsPage extends Tab {
 				'title'   => 'Roles',
 				'id'      => 'uewm_roles',
 				'class'   => 'select2',
-				'options' => $this->service_users->get_all_roles(),
+				'options' => $this->users->get_all_roles(),
 			),
 			array(
 				'type'    => 'multiselect',
 				'title'   => 'Columns',
 				'id'      => 'uewm_columns',
 				'class'   => 'select2',
-				'options' => $this->service_users->get_all_columns(),
+				'options' => $this->users->get_all_columns(),
 			),
 			array(
 				'type'  => 'checkbox',
@@ -137,7 +137,7 @@ class SettingsPage extends Tab {
 
 		/** Get selected columns. */
 		$columns = get_option( 'uewm_columns' );
-		$columns = $columns ? $columns : $this->service_users->get_all_columns(); /** Empty = All. */
+		$columns = $columns ? $columns : $this->users->get_all_columns(); /** Empty = All. */
 
 		/** SECURITY: Do not export these. */
 		$columns = array_diff(
@@ -174,7 +174,7 @@ class SettingsPage extends Tab {
 		$roles           = get_option( 'uewm_roles' );
 		$roles           = $roles ? $roles : array(); /** Empty = All. */
 		$users           = get_users( array( 'role__in' => $roles ) );
-		$users_with_data = $this->service_users->get_users_data( $users );
+		$users_with_data = $this->users->get_users_data( $users );
 
 		/**
 		 * Output to browser and quit.
