@@ -6,11 +6,6 @@
  * TODO:
  * * [ ] Fix PHPMD/PHPCS issues on files;
  * * [ ] Create unit tests for files in the "includes" folder;
- * * [ ] Use custom SQL to get all columns;
- * * [ ] Security: fix CSV vulnerability. To reproduce the issue:
- *     * Edit user "test" and put this as its name "=2+5";
- *     * Then export it and open the file;
- *     * On Excel, it will appear as "7", which means an attacker can execute remote code on it;
  *
  * @package UserExportWithMeta
  */

@@ -3,13 +3,6 @@ namespace UserExportWithMeta;
 
 class WPUsers {
 	/**
-	 * Cached result for `get_all_columns()`.
-	 *
-	 * @var array
-	 */
-	public $cached_get_all_columns;
-
-	/**
 	 * Get all roles.
 	 *
 	 * @return array An associative array on format `[role_id] => role_name`.
@@ -25,36 +18,6 @@ class WPUsers {
 		return $roles;
 	}
 
-
-	/**
-	 * Get user data (standard and meta).
-	 *
-	 * @param  WP_User $user The user we are extracting data.
-	 * @return array (string) The key is the column name. The value is the column data.
-	 *    Example: [
-	 *      'first_name'  => 'John',
-	 *      'last_name'   => 'Snow',
-	 *    ]
-	 */
-	public function get_user_data( $user ) {
-		/** User fields are in "data". */
-		$user_data = (array) $user->data;
-
-		/** Extra fields are saved as meta. */
-		$user_meta = get_user_meta( $user->ID );
-
-		/**
-		 * By default, the user_meta has this format:
-		 * [ 'key' => [ 'value' ] ]
-		 * Converts it to:
-		 * [ 'key' => 'value' ]
-		 */
-		$user_meta = array_map( 'array_shift', $user_meta );
-
-		/** Return $user_data and $user_meta merged. */
-		return array_merge( $user_data, $user_meta );
-	}
-
 	/**
 	 * Get all columns (scan the entire user database).
 	 * Format: `[column_name] => column_name`.
@@ -63,40 +26,92 @@ class WPUsers {
 	 * @return string[] A list with all column names
 	 */
 	public function get_all_columns() {
-		/** Check cache. */
-		if ( $this->cached_get_all_columns ) {
-			return $this->cached_get_all_columns;
+		/** Return cache. */
+		$result = wp_cache_get( 'uewm_get_all_columns' );
+		if ( false !== $result ) {
+			return $result;
 		}
 
-		/** Not in cache. */
-		$users  = get_users(); /** Get all users. It doesn't contain meta. */
-		$result = array();
-		foreach ( $users as $user ) {
-			$user_data = $this->get_user_data( $user ); /** Load meta and merge with user object. */
-			foreach ( array_keys( $user_data ) as $key ) {
-				$result[ $key ] = $key;
-			}
+		/** SQL on WP. */
+		global $wpdb;
+
+		/** Get `wp_users` column names. */
+		$sql     = "SELECT * FROM {$wpdb->users} LIMIT 1";
+		$md5     = md5( $sql );
+		$columns = wp_cache_get( $md5 );
+		if ( false === $columns ) {
+			$wpdb->get_row( $sql );
+			$columns = $wpdb->get_col_info();
+			wp_cache_set( $md5, $columns );
+		}
+
+		/** Get metadata names. */
+		$sql          = "SELECT meta_key FROM {$wpdb->usermeta} GROUP BY meta_key";
+		$md5          = md5( $sql );
+		$meta_columns = wp_cache_get( $md5 );
+		if ( false === $meta_columns ) {
+			$meta_columns = $wpdb->get_col( $sql, 0 );
+			wp_cache_set( $md5, $meta_columns );
 		}
 
 		/** Return. */
-		$this->cached_get_all_columns = $result; /** Save results on cache for re-usee. */
+		$result = array_merge( $columns, $meta_columns );
+		$result = $this->value_to_keys( $result );
+		wp_cache_set( 'uewm_get_all_columns', $result );
 		return $result;
 	}
 
 	/**
-	 * Load users' data
+	 * Load users' data.
 	 *
 	 * @param array $users User record from `get_users()`.
-	 *
 	 * @return array A list of users and their data. Example: [
 	 *   [fname => John, lname => Snow], [fname => Jane, lname => Doe]
 	 * ].
 	 */
 	public function get_users_data( $users ) {
-		$user_rows = array();
+		global $wpdb;
+
+		/** Get $users->IDs. */
+		$ids = array();
 		foreach ( $users as $user ) {
-			$user_rows[] = $this->get_user_data( $user );
+			$ids[] = $user->ID;
+		}
+
+		/** Select records with $users->ID. */
+		$array_d      = implode( ',', array_fill( 0, count( $ids ), '%d' ) );
+		$sql          = "SELECT * FROM {$wpdb->usermeta} WHERE user_id in ({$array_d})";
+		$query        = call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $sql ), $ids ) );
+		$meta_records = $wpdb->get_results( $query );
+
+		/** Final array. */
+		$user_rows = array();
+
+		/** User fields are in "data". */
+		foreach ( $users as $user ) {
+			$user_rows[ $user->ID ] = (array) $user->data;
+		}
+
+		/** Add meta info */
+		foreach ( $meta_records as $meta ) {
+			$user_rows[ $meta->user_id ][ $meta->meta_key ] = $meta->meta_value;
 		}
 		return $user_rows;
+	}
+
+	/**
+	 * Set values to keys: `[value] => value`.
+	 *
+	 * Useful for preparing a flat array to be used by an HTML select.
+	 *
+	 * @param string[] $array A simple array of strings.
+	 * @return array An associative array `[value] => value`.
+	 */
+	private function value_to_keys( $array ) {
+		$result = array();
+		foreach ( $array as $value ) {
+			$result[ $value ] = $value;
+		}
+		return $result;
 	}
 }
