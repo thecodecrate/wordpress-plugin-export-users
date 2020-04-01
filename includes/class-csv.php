@@ -90,7 +90,6 @@ class CSV {
 			$enclosure_char = $enclosure_options[ $enclosure_char ];
 		}
 
-
 		/** Output header. */
 		fputcsv( $hnd, $columns, $delimiter_char, $enclosure_char );
 
@@ -102,6 +101,9 @@ class CSV {
 				$output_row[ $column ] = array_key_exists( $column, $row ) ? $row[ $column ] : '';
 			}
 
+			/** Sanitize values in the row. */
+			$output_row = array_map( array( $this, 'sanitize_value' ), $output_row );
+
 			/** Now that the user has the same columns as the header, outputs it. */
 			fputcsv( $hnd, $output_row, $delimiter_char, $enclosure_char );
 		}
@@ -109,5 +111,35 @@ class CSV {
 		/** Close file and exit. */
 		fclose( $hnd );
 		exit();
+	}
+
+
+	/**
+	 * Sanitize value, removing vulnerabilities on values.
+	 *
+	 * @param string $value The string to be sanitized.
+	 * @return string The `$value` after being sanitized.
+	 */
+	private function sanitize_value( $value ) {
+		/**
+		 * "Formula Injection" Mitigation:
+		 *
+		 * Ensure values doesn't start with: `=+-@`
+		 * https://owasp.org/www-community/attacks/CSV_Injection
+		 */
+		$regex = '/^[\=\+\-\@](.*)$/';
+		/** "Lastly, as a best security practice measure, consider stripping all trailling white spaces where possible,
+		 * and limiting all client-supplied data to alpha-numeric characters." */
+		$value = trim( $value ); /** Strip trailing white spaces - we can't restrict to alpha-numeric due to the multi-language support. */
+		if ( 1 === preg_match( $regex, $value ) ) {
+			/** Fix: "When generating spreadsheets, fields that begin with any of the above symbols
+			 * should be prepended by a single quote or apostrophe (') character.
+			 * Microsoft Excel will preserve data integrity by hiding this character when
+			 * rendering the spreadsheet.." */
+			$value = '`' . $value;
+		}
+
+		/** Return sanitized `$value`. */
+		return $value;
 	}
 }
