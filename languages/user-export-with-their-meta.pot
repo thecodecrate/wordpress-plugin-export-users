@@ -1,0 +1,127 @@
+# Copyright (C) 2020 Daniel Loureiro
+# This file is distributed under the same license as the User Export (with their Meta Data) package.
+msgid ""
+msgstr ""
+"Project-Id-Version: User Export (with their Meta Data) 0.5.0\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/user-export-with-their-meta\n"
+"POT-Creation-Date: 2020-04-02 15:03:02+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:297
+msgid "Your settings have been saved."
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:949
+msgid ""
+"The settings of this image size have been disabled because its values are "
+"being overwritten by a filter."
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:961
+msgid "Hard crop?"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:992
+msgid "Select a page&hellip;"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1015
+msgid "Choose a country / region&hellip;"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1015
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1040
+msgid "Country / Region"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1040
+msgid "Choose countries / regions&hellip;"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1048
+msgid "Select all"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1048
+msgid "Select none"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1057
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1341
+msgid "Day(s)"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1058
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1342
+msgid "Week(s)"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1059
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1343
+msgid "Month(s)"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1060
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1344
+msgid "Year(s)"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1131
+msgid "The changes you made will be lost if you navigate away from this page."
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1132
+msgid "Item moved up"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1133
+msgid "Item moved down"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1134
+msgid ""
+"Selecting no country / region to sell to prevents from completing the "
+"checkout. Continue anyway?"
+msgstr ""
+
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/views/html-admin-settings.php:60
+msgid "Save changes"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "User Export (with their Meta Data)"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/loureirorg/wordpress-plugin-export-users"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Export users to CSV."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Daniel Loureiro"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://learnwithdaniel.com/"
+msgstr ""
