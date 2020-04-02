@@ -31,6 +31,9 @@ class SettingsPage extends Tab {
 		/** Add custom field type. */
 		add_action( 'uewm_settings_admin_field_select_with_text', array( $this, 'select_with_text' ) );
 
+		/** Load jQuery's Sortable. */
+		add_action( 'uewm_settings_load_page', array( $this, 'load_page' ) );
+
 		/** Inherited. */
 		parent::__construct();
 	}
@@ -131,6 +134,13 @@ class SettingsPage extends Tab {
 		);
 
 		return $settings;
+	}
+
+	/**
+	 * Load jQuery's sortable.
+	 */
+	public function load_page() {
+		wp_enqueue_script( 'jquery-ui-sortable' );
 	}
 
 	/**

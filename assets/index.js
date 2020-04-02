@@ -5,7 +5,13 @@ jQuery(document).ready(function() {
     jQuery('select.select2').select2({
         placeholder: 'All'
     });
+
+    /** Allow drag and drop for sorting. */
+    jQuery('ul.select2-selection__rendered').sortable({
+        containment: 'parent'
+    });
 });
+
 
 /**
  * Show/Hide "Field Separator and Text Qualifier" section.

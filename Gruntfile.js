@@ -9,7 +9,7 @@ module.exports = function( grunt ) {
 
 		addtextdomain: {
 			options: {
-				textdomain: 'export-users-with-meta',
+				textdomain: 'user-export-with-their-meta',
 			},
 			update_all_domains: {
 				options: {
@@ -20,6 +20,9 @@ module.exports = function( grunt ) {
 		},
 
 		wp_readme_to_markdown: {
+			options: {
+				screenshot_url: '/assets/{screenshot}.png'
+			},
 			your_target: {
 				files: {
 					'README.md': 'readme.txt'
@@ -32,8 +35,8 @@ module.exports = function( grunt ) {
 				options: {
 					domainPath: '/languages',
 					exclude: [ '\.git/*', 'bin/*', 'node_modules/*', 'tests/*' ],
-					mainFile: 'export-users-with-meta.php',
-					potFilename: 'export-users-with-meta.pot',
+					mainFile: 'user-export-with-their-meta.php',
+					potFilename: 'user-export-with-their-meta.pot',
 					potHeaders: {
 						poedit: true,
 						'x-poedit-keywordslist': true
