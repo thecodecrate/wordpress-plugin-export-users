@@ -8,6 +8,7 @@
  *     * Drag n' drop is already working (jQuery's sortable on `index.js`), but
  *     * (1) The changes are not keeping if you save and reload; and
  *     * (2) It is not generating the file with the specified order.
+ * * [ ] Pre-defined GitHub Actions: https://github.com/10up/actions-wordpress/
  * * [ ] Fix PHPMD/PHPCS issues on files;
  * * [ ] Create unit tests for files in the "includes" folder;
  *
