@@ -2,8 +2,8 @@
 Contributors: loureirorg
 Tags: users, export
 Requires at least: 4.5
-Tested up to: 5.4
-Stable tag: 0.5.0
+Tested up to: 5.4.1
+Stable tag: 0.5.1
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -34,6 +34,9 @@ This plugin is protected against this vulnerability since version 0.5.0.
 1. Exporting users.
 
 == Changelog ==
+
+= 0.5.1 =
+* [Bug] Exception due to type hinting on scalar types (PHP5.6<, PHP7 with PHP5 compability enabled). Fixed by updating "settings-as-woocommerce" library.
 
 = 0.5.0 =
 * [Bug] Fix CSV Injection (aka Formula Injection).
