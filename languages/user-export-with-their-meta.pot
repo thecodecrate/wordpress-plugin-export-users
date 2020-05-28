@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the User Export (with their Meta Data) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: User Export (with their Meta Data) 0.5.0\n"
+"Project-Id-Version: User Export (with their Meta Data) 0.5.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/user-export-with-their-meta\n"
-"POT-Creation-Date: 2020-04-02 15:03:02+00:00\n"
+"POT-Creation-Date: 2020-05-28 17:41:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,78 +25,78 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:297
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:303
 msgid "Your settings have been saved."
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:949
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:955
 msgid ""
 "The settings of this image size have been disabled because its values are "
 "being overwritten by a filter."
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:961
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:967
 msgid "Hard crop?"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:992
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:998
 msgid "Select a page&hellip;"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1015
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1021
 msgid "Choose a country / region&hellip;"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1015
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1040
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1021
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1046
 msgid "Country / Region"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1040
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1046
 msgid "Choose countries / regions&hellip;"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1048
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1054
 msgid "Select all"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1048
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1054
 msgid "Select none"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1057
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1341
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1063
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1347
 msgid "Day(s)"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1058
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1342
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1064
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1348
 msgid "Week(s)"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1059
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1343
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1065
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1349
 msgid "Month(s)"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1060
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1344
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1066
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1350
 msgid "Year(s)"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1131
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1137
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1132
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1138
 msgid "Item moved up"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1133
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1139
 msgid "Item moved down"
 msgstr ""
 
-#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1134
+#: vendor/loureirorg/settings-as-woocommerce/src/Woocommerce/WC.php:1140
 msgid ""
 "Selecting no country / region to sell to prevents from completing the "
 "checkout. Continue anyway?"

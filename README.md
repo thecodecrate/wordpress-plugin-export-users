@@ -1,11 +1,11 @@
 # Export Users With Meta #
-**Contributors:** [loureirorg](https://profiles.wordpress.org/loureirorg)
-**Tags:** users, export
-**Requires at least:** 4.5
-**Tested up to:** 5.4.1
-**Stable tag:** 0.5.1
-**License:** MIT
-**License URI:** https://opensource.org/licenses/MIT
+**Contributors:** [loureirorg](https://profiles.wordpress.org/loureirorg)  
+**Tags:** users, export  
+**Requires at least:** 4.5  
+**Tested up to:** 5.4  
+**Stable tag:** 0.5.0  
+**License:** MIT  
+**License URI:** https://opensource.org/licenses/MIT  
 
 Export Users to CSV file (with their meta data).
 
@@ -25,6 +25,10 @@ A very simple plugin to export users to a CSV file. It exports the user's meta d
 
 Yes.
 
+### What about "Formula Injection" vulnerability? ###
+
+This plugin is protected against this vulnerability since version 0.5.0.
+
 ## Screenshots ##
 
 ### 1. Exporting users. ###
@@ -32,9 +36,6 @@ Yes.
 
 
 ## Changelog ##
-
-### 0.5.1 ###
-* [Bug] Exception due to type hinting on scalar types (PHP5.6<, PHP7 with PHP5 compability enabled). Fixed by updating "settings-as-woocommerce" library.
 
 ### 0.5.0 ###
 * [Bug] Fix CSV Injection (aka Formula Injection).
