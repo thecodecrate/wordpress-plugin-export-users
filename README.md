@@ -1,9 +1,9 @@
 # Export Users With Meta #
 **Contributors:** [loureirorg](https://profiles.wordpress.org/loureirorg)  
-**Tags:** users, export  
+**Tags:** users, export, meta  
 **Requires at least:** 4.5  
-**Tested up to:** 5.4.1  
-**Stable tag:** 0.5.1  
+**Tested up to:** 5.4.2  
+**Stable tag:** 0.6.0  
 **License:** MIT  
 **License URI:** https://opensource.org/licenses/MIT  
 
@@ -11,7 +11,7 @@ Export Users to CSV file (with their meta data).
 
 ## Description ##
 
-A very simple plugin to export users to a CSV file. It exports the user's meta data too. This means it works with WooCommerce and other plugins that store extra information on the users table.
+A very simple plugin to export users to a CSV file. It exports the user's meta data too.
 
 ## Installation ##
 
@@ -20,10 +20,6 @@ A very simple plugin to export users to a CSV file. It exports the user's meta d
 1. Thats it! you can now configure the plugin.
 
 ## Frequently Asked Questions ##
-
-### Does it work with WooCommerce? ###
-
-Yes.
 
 ### What about "Formula Injection" vulnerability? ###
 
@@ -36,6 +32,9 @@ This plugin is protected against this vulnerability since version 0.5.0.
 
 
 ## Changelog ##
+
+### 0.6.0 ###
+* [Minor] Memory usage improvements. It consumes all memory and throws a memory exception on more than 10k users on a 256mb standard installation. This improvement makes it never use more than 10mb of memory.
 
 ### 0.5.1 ###
 * [Bug] Exception due to type hinting on scalar types (PHP5.6<, PHP7 with PHP5 compability enabled). Fixed by updating "settings-as-woocommerce" library.
