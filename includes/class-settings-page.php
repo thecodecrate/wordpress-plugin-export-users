@@ -188,17 +188,24 @@ class SettingsPage extends Tab {
 			}
 		}
 
-		/** Get selected users. */
-		$roles           = get_option( 'uewm_roles' );
-		$roles           = $roles ? $roles : array(); /** Empty = All. */
-		$users           = get_users( array( 'role__in' => $roles ) );
-		$users_with_data = $this->users->get_users_data( $users );
+		/** Get selected users (ids). */
+		$roles = get_option( 'uewm_roles' );
+		$ids   = $roles ? $this->users->get_user_ids_by_roles( $roles ) : $this->users->get_user_ids();
+
+		/** Process in batches of 1k users */
+		$page_size  = 1000;
+		$page_count = floor( ( count( $ids ) - 1 ) / $page_size ) + 1;
+		$csv        = new CSV( $columns, $delimiter_char, $enclosure_char, true );
+		for ( $i = 0; $i < $page_count; $i ++) {
+			$ids_page = array_splice( $ids, 0, $page_size );
+			$data     = $this->users->get_users_data( $ids_page );
+			$csv->write( $data );
+		}
 
 		/**
 		 * Output to browser and quit.
 		 */
-		$csv = new CSV();
-		$csv->output_csv( $columns, $users_with_data, $delimiter_char, $enclosure_char, true );
+		$csv->close();
 	}
 
 	/**

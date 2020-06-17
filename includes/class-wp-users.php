@@ -62,24 +62,26 @@ class WPUsers {
 	}
 
 	/**
-	 * Load users' data.
+	 * Load users and their meta.
+
+	 * @param  string[] $ids User ids.
 	 *
-	 * @param array $users User record from `get_users()`.
-	 * @return array A list of users and their data. Example: [
+	 * @return int A database handler that returns a list of users and their data. Example: [
 	 *   [fname => John, lname => Snow], [fname => Jane, lname => Doe]
 	 * ].
 	 */
-	public function get_users_data( $users ) {
+	public function get_users_data( $ids ) {
 		global $wpdb;
 
-		/** Get $users->IDs. */
-		$ids = array();
-		foreach ( $users as $user ) {
-			$ids[] = $user->ID;
-		}
+		/** A string "%d, %d, %d, ..." to be used on "id IN(...)". */
+		$array_d = implode( ',', array_fill( 0, count( $ids ), '%d' ) );
 
-		/** Select records with $users->ID. */
-		$array_d      = implode( ',', array_fill( 0, count( $ids ), '%d' ) );
+		/** Get users of $ids. */
+		$sql          = "SELECT * FROM {$wpdb->users} WHERE id IN ({$array_d})";
+		$query        = call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $sql ), $ids ) );
+		$user_records = $wpdb->get_results( $query );
+
+		/** Get meta data of $ids. */
 		$sql          = "SELECT * FROM {$wpdb->usermeta} WHERE user_id in ({$array_d})";
 		$query        = call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $sql ), $ids ) );
 		$meta_records = $wpdb->get_results( $query );
@@ -87,16 +89,54 @@ class WPUsers {
 		/** Final array. */
 		$user_rows = array();
 
-		/** User fields are in "data". */
-		foreach ( $users as $user ) {
-			$user_rows[ $user->ID ] = (array) $user->data;
+		/** Set key = user ID. */
+		foreach ( $user_records as $record ) {
+			$user_rows[ $record->ID ] = (array) $record;
 		}
 
 		/** Add meta info */
-		foreach ( $meta_records as $meta ) {
-			$user_rows[ $meta->user_id ][ $meta->meta_key ] = $meta->meta_value;
+		foreach ( $meta_records as $record ) {
+			$user_rows[ $record->user_id ][ $record->meta_key ] = $record->meta_value;
 		}
 		return $user_rows;
+	}
+
+	/**
+	 * Get all user IDs from a given set of roles.
+	 *
+	 * @param  string[] $roles Filter users with these roles.
+	 *
+	 * @return int[] An array of user ids.
+	 */
+	public function get_user_ids_by_roles( $roles ) {
+		global $wpdb;
+
+		/** Get user IDs by their roles. */
+		$role_statements = array();
+		foreach ( $roles as $role ) {
+			$value             = serialize( $role );
+			$role_statements[] = "meta_value LIKE '%{$value}%'";
+		}
+		$role_statements = join( ' OR ', $role_statements );
+		$sql = "
+			SELECT user_id
+			FROM {$wpdb->usermeta}
+			WHERE meta_key = 'wp_capabilities' AND ({$role_statements})
+		";
+		$ids = $wpdb->get_col( $sql, 0 );
+		return array_map( 'intval', $ids );
+	}
+
+	/**
+	 * Get all user ids.
+	 *
+	 * @return int[] An array of user ids.
+	 */
+	public function get_user_ids() {
+		global $wpdb;
+		$sql = "SELECT ID FROM {$wpdb->users}";
+		$ids = $wpdb->get_col( $sql, 0 );
+		return array_map( 'intval', $ids );
 	}
 
 	/**

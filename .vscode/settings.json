@@ -1,0 +1,4 @@
+{
+    "phpcs.standard": "WordPress",
+    "phpcs.executablePath": "/home/daniel/.config/composer/vendor/bin/phpcs"
+}
