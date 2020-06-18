@@ -13,7 +13,6 @@ jobs:
       # Prepare the release
       - run: ls
       - run: "composer install --no-dev"
-      - run: "rm codeception.dist.yml && rm readme.md && rm -rf tests && rm composer.json && rm composer.lock"
       - run: ls
       # Release to WordPress.org
       - name: WordPress Plugin Deploy
