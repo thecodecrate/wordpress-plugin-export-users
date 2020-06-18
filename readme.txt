@@ -3,7 +3,7 @@ Contributors: loureirorg
 Tags: users, export, meta
 Requires at least: 4.5
 Tested up to: 5.4.2
-Stable tag: 0.6.0
+Stable tag: 0.6.1
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -30,6 +30,9 @@ This plugin is protected against this vulnerability since version 0.5.0.
 1. Exporting users.
 
 == Changelog ==
+
+= 0.6.1 =
+* [Patch] Remove dev vendor files (e.g. phpunit).
 
 = 0.6.0 =
 * [Minor] Memory usage improvements. It consumes all memory and throws a memory exception on more than 10k users on a 256mb standard installation. This improvement makes it never use more than 10mb of memory.
