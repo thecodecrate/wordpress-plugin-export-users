@@ -12,8 +12,8 @@ jobs:
       - uses: actions/checkout@master
       # Run `npm run dev` to produce readme.md and others - install npm first
       - run: |
-          npm install --dev
-          npm run dev
+          NODE_ENV=development npm install
+          npm run start
       # Remove npm and its dev packages
       - run: |
           ls
