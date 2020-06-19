@@ -46,13 +46,25 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
+
+		file_append: {
+			default_options: {
+			  files: [
+				{
+				  prepend: "![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/user-export-with-their-meta-data) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/user-export-with-their-meta-data) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/Deploy%20to%20WordPress.org/badge.svg?tag=latest)](https://github.com/loureirorg/wordpress-plugin-export-users/actions)\n\n",
+				  input: 'README.md',
+				}
+			  ]
+			}
+		  }
 	} );
 
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
+	grunt.loadNpmTasks( 'grunt-file-append' );
 	grunt.registerTask( 'default', [ 'i18n','readme' ] );
 	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
-	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
+	grunt.registerTask( 'readme', ['wp_readme_to_markdown', 'file_append'] );
 
 	grunt.util.linefeed = '\n';
 

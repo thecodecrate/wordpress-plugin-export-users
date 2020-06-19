@@ -1,3 +1,5 @@
+![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/user-export-with-their-meta-data) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/user-export-with-their-meta-data) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/Deploy%20to%20WordPress.org/badge.svg?tag=latest)](https://github.com/loureirorg/wordpress-plugin-export-users/actions)
+
 # Export Users With Meta #
 **Contributors:** [loureirorg](https://profiles.wordpress.org/loureirorg)  
 **Tags:** users, export, meta  

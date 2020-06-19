@@ -32,7 +32,7 @@ multisite.xml.dist
 phpcs.xml
 .phpcs.xml.dist
 phpcs.xml.dist
-.phpmd.xml.dist
+phpmd.xml.dist
 README.md
 webpack.config.js
 wp-cli.local.yml
