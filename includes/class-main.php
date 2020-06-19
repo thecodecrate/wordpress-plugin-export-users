@@ -4,13 +4,14 @@
  *   This is the entrypoint for our plugin.
  *
  * TODO:
+ * * [ ] Use composer's autoloader instead of our custom autoloader (classes have to be renamed to "CSV/Main/SettingsPage/WPUsers");
  * * [ ] Allow column sorting:
  *     * Drag n' drop is already working (jQuery's sortable on `index.js`), but
  *     * (1) The changes are not keeping if you save and reload; and
  *     * (2) It is not generating the file with the specified order.
- * * [ ] Pre-defined GitHub Actions: https://github.com/10up/actions-wordpress/
  * * [ ] Fix PHPMD/PHPCS issues on files;
  * * [ ] Create unit tests for files in the "includes" folder;
+ * * [ ] GitHub Action: One new WP versions, trigger testing and auto-update "Tested up to";
  *
  * @package UserExportWithMeta
  */
