@@ -10,6 +10,15 @@ jobs:
     steps:
       # Clone the repo
       - uses: actions/checkout@master
+      # Run `npm run dev` to produce readme.md and others - install npm first
+      - run: |
+          npm install --dev
+          npm run dev
+      # Remove npm and its dev packages
+      - run: |
+          ls
+          rm -Rf node_modules
+          ls
       # Prepare the release
       - run: |
           ls 
