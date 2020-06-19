@@ -11,9 +11,11 @@ jobs:
       # Clone the repo
       - uses: actions/checkout@master
       # Prepare the release
-      - run: ls
-      - run: "composer install --no-dev"
-      - run: ls
+      - run: |
+          ls 
+          composer install --no-dev
+          npm install --production
+          ls
       # Release to WordPress.org
       - name: WordPress Plugin Deploy
         uses: 10up/action-wordpress-plugin-deploy@master
