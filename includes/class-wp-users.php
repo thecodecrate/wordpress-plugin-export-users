@@ -121,7 +121,7 @@ class WPUsers {
 		$sql = "
 			SELECT user_id
 			FROM {$wpdb->usermeta}
-			WHERE meta_key = 'wp_capabilities' AND ({$role_statements})
+			WHERE meta_key = '{$wpdb->prefix}capabilities' AND ({$role_statements})
 		";
 		$ids = $wpdb->get_col( $sql, 0 );
 		return array_map( 'intval', $ids );

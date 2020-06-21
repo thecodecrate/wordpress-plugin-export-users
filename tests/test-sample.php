@@ -2,7 +2,7 @@
 /**
  * Class SampleTest
  *
- * @package User_Export_With_Meta
+ * @package User_Export_With_Their_Meta
  */
 
 /**

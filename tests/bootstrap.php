@@ -2,7 +2,7 @@
 /**
  * PHPUnit bootstrap file
  *
- * @package User_Export_With_Meta
+ * @package User_Export_With_Their_Meta
  */
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
@@ -12,7 +12,7 @@ if ( ! $_tests_dir ) {
 }
 
 if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
-	echo "Could not find $_tests_dir/includes/functions.php, have you run bin/install-wp-tests.sh ?" . PHP_EOL; // WPCS: XSS ok.
+	echo "Could not find $_tests_dir/includes/functions.php, have you run bin/install-wp-tests.sh ?" . PHP_EOL; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	exit( 1 );
 }
 
@@ -23,7 +23,7 @@ require_once $_tests_dir . '/includes/functions.php';
  * Manually load the plugin being tested.
  */
 function _manually_load_plugin() {
-	require dirname( dirname( __FILE__ ) ) . '/export-users-with-meta.php';
+	require dirname( dirname( __FILE__ ) ) . '/user-export-with-their-meta.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
