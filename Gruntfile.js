@@ -51,7 +51,7 @@ module.exports = function( grunt ) {
 			default_options: {
 			  files: [
 				{
-				  prepend: "![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/user-export-with-their-meta-data) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/user-export-with-their-meta-data) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/Deploy%20to%20WordPress.org/badge.svg?tag=latest)](https://github.com/loureirorg/wordpress-plugin-export-users/actions)\n\n",
+				  prepend: "![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/user-export-with-their-meta-data) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/user-export-with-their-meta-data) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/Deploy%20to%20WordPress.org/badge.svg?tag=latest)](https://github.com/loureirorg/wordpress-plugin-export-users/actions) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/CI/badge.svg?branch=master)](https://github.com/loureirorg/wordpress-plugin-export-users/actions)\n\n",
 				  input: 'README.md',
 				}
 			  ]
