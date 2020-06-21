@@ -24,7 +24,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Install Composer dependencies
-      run: composer install -o --no-progress
+      run: composer install -o --no-dev --no-progress
     - name: Setup PHP
       uses: shivammathur/setup-php@v1
       with:
