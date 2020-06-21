@@ -9,8 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-#         php: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4']
-        php: ['7.4']
+        php: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4']
     services:
       mysql:
         image: mysql:5.7
@@ -24,7 +23,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Install Composer dependencies
-      run: composer install -o --no-dev --no-progress
+      run: composer install -o --no-progress
     - name: Setup PHP
       uses: shivammathur/setup-php@v1
       with:
