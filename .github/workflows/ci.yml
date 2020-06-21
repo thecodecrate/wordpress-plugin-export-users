@@ -1,11 +1,11 @@
-name: Test
+name: CI
 
-on: push
+on: [push, pull_request]
 
 jobs:
   phpunit:
     name: PHPUnit
-    needs: build
+#     needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
