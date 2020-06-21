@@ -23,16 +23,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      with:
-        path: my_repo
-    - name: ls
-      run: |
-        pwd
-        ls
     - name: Install Composer dependencies
-      run: |
-        cd my_repo
-        composer install -o --no-progress
+      run: composer install -o --no-progress
     - name: Setup PHP
       uses: shivammathur/setup-php@v1
       with:
@@ -41,6 +33,5 @@ jobs:
         coverage: none
     - name: PHPUnit
       run: |
-        cd my_repo
         bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:${{ job.services.mysql.ports['3306'] }} latest true
         vendor/bin/phpunit
