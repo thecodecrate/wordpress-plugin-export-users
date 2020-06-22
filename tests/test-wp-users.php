@@ -29,6 +29,10 @@ class TestWPUsers extends WP_UnitTestCase {
 		/** Instantiate WPUsers class. */
 		$this->users = new WPUsers();
 
+		/** Clear cache */
+		global $wp_roles;
+		$wp_roles = null;
+
 		// var_dump(count_users());
 	}
 
@@ -78,15 +82,12 @@ class TestWPUsers extends WP_UnitTestCase {
 		add_role( 'custom_role', 'Custom Subscriber', array( 'read' => true, 'level_0' => true ) );
 
 		/** Generate 3 users. */
-		self::generate_dummy_users( 4, array( 'role' => 'custom_role' ) );
+		$data = self::generate_dummy_users( 3, array( 'role' => 'custom_role' ) );
 
 		/** Get data and check. */
 		$ids   = $this->users->get_user_ids_by_roles( array( 'custom_role' ) );
 		$users = $this->users->get_users_data( $ids );
-		$this->assertCount( 4, $users );
-
-		/** Cleanup (is it necessary?) */
-		remove_role( 'custom_role' );
+		$this->assertCount( 3, $ids );
 	}
 
 	/**
@@ -436,7 +437,8 @@ class TestWPUsers extends WP_UnitTestCase {
 
 		/** create n users. */
 		$result = array();
-		for ( $i = 0; $i < $amount; $i++ ) {
+		$i      = 0;
+		while ( $i < $amount ) {
 			$data  = array(
 				'user_login'  => $faker->userName,
 				'user_email'  => $faker->email,
@@ -447,9 +449,21 @@ class TestWPUsers extends WP_UnitTestCase {
 				'description' => $faker->paragraph( 3 ),
 				'role'        => isset( $custom_fields['role'] ) ? $custom_fields['role'] : 'subscriber',
 			);
-			$data['id'] =  wp_insert_user( $data ); /** add to db */
+
+			/** Add to db. */
+			$id = wp_insert_user( $data );
+
+			/** Error has happened (probable name/email already exists), try again. */
+			if ( ! is_int( $id ) ) {
+				continue;
+			}
+
+			$data['id'] = $id;
 			unset( $data['user_pass'] ); /** remove password field, as it will be ignored. */
 			$result[] = $data; /** add to our array. */
+
+			/** next. */
+			$i ++;
 		}
 		return $result;
 	}
