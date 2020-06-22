@@ -69,6 +69,27 @@ class TestWPUsers extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test `get_user_ids_by_roles()` with custom role.
+	 *
+	 * @return void
+	 */
+	public function test_get_user_ids_by_roles_with_custom_role() {
+		/** Add new custom role. */
+		add_role( 'custom_role', 'Custom Subscriber', array( 'read' => true, 'level_0' => true ) );
+
+		/** Generate 3 users. */
+		self::generate_dummy_users( 4, array( 'role' => 'custom_role' ) );
+
+		/** Get data and check. */
+		$ids   = $this->users->get_user_ids_by_roles( array( 'custom_role' ) );
+		$users = $this->users->get_users_data( $ids );
+		$this->assertCount( 4, $users );
+
+		/** Cleanup (is it necessary?) */
+		remove_role( 'custom_role' );
+	}
+
+	/**
 	 * Test `get_user_ids()` with default users.
 	 *
 	 * @return void
@@ -401,12 +422,19 @@ class TestWPUsers extends WP_UnitTestCase {
 	 * Generate fake dummy users.
 	 *
 	 * @param int $amount How many users to create.
+	 * @param array $custom_fields Force custom fields. Ex. ['role' => 'administrator'].
 	 *
 	 * @return array An array with the generated users.
 	 */
-	private static function generate_dummy_users( $amount ) {
+	private static function generate_dummy_users( $amount, $custom_fields = null ) {
 		$faker = Faker\Factory::create();
 
+		/** default is empty array. */
+		if ( $custom_fields == null ) {
+			$custom_fields = array();
+		}
+
+		/** create n users. */
 		$result = array();
 		for ( $i = 0; $i < $amount; $i++ ) {
 			$data  = array(
@@ -417,7 +445,7 @@ class TestWPUsers extends WP_UnitTestCase {
 				'last_name'   => $faker->lastName,
 				'user_url'    => $faker->url,
 				'description' => $faker->paragraph( 3 ),
-				'role'        => 'subscriber',
+				'role'        => isset( $custom_fields['role'] ) ? $custom_fields['role'] : 'subscriber',
 			);
 			$data['id'] =  wp_insert_user( $data ); /** add to db */
 			unset( $data['user_pass'] ); /** remove password field, as it will be ignored. */
