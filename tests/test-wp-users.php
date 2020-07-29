@@ -137,6 +137,7 @@ class TestWPUsers extends WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_get_all_columns_default() {
+		global $wpdb;
 		$default_columns = array(
 			'ID', 'user_login', 'user_pass', 'user_nicename', 'user_email',
 			'user_url', 'user_registered', 'user_activation_key', 'user_status',
@@ -144,7 +145,7 @@ class TestWPUsers extends WP_UnitTestCase {
 			'dismissed_wp_pointers', 'first_name', 'last_name', 'locale',
 			'nickname', 'rich_editing', 'show_admin_bar_front',
 			'show_welcome_panel', 'syntax_highlighting', 'use_ssl',
-			'wptests_capabilities', 'wptests_user_level'
+			"{$wpdb->prefix}capabilities", "{$wpdb->prefix}user_level"
 		);
 		$columns         = array_keys( $this->users->get_all_columns() );
 		$equals          = $this->arrays_are_similar( $columns, $default_columns );
@@ -157,6 +158,7 @@ class TestWPUsers extends WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_get_all_columns_with_custom_columns() {
+		global $wpdb;
 		$default_columns = array(
 			'ID', 'user_login', 'user_pass', 'user_nicename', 'user_email',
 			'user_url', 'user_registered', 'user_activation_key', 'user_status',
@@ -164,7 +166,7 @@ class TestWPUsers extends WP_UnitTestCase {
 			'dismissed_wp_pointers', 'first_name', 'last_name', 'locale',
 			'nickname', 'rich_editing', 'show_admin_bar_front',
 			'show_welcome_panel', 'syntax_highlighting', 'use_ssl',
-			'wptests_capabilities', 'wptests_user_level',
+			"{$wpdb->prefix}capabilities", "{$wpdb->prefix}user_level",
 			'my_custom_col1', 'my_custom_col2'
 		);
 
