@@ -4,7 +4,7 @@
  *   This is the entrypoint for our plugin.
  *
  * TODO:
- * * [ ] Use composer's autoloader instead of our custom autoloader (classes have to be renamed to "CSV/Main/SettingsPage/WPUsers");
+ * * [ ] Use composer's autoloader instead of our custom autoloader (filenames have to be renamed to "CSV/Main/SettingsPage/WPUsers");
  * * [ ] Allow column sorting:
  *     * Drag n' drop is already working (jQuery's sortable on `index.js`), but
  *     * (1) The changes are not keeping if you save and reload; and

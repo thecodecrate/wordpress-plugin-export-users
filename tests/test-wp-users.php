@@ -14,6 +14,7 @@ class TestWPUsers extends WP_UnitTestCase {
 	/**
 	 * Associative array with all generated users + standard users.
 	 *
+	 * @var array
 	 */
 	public static $users_data;
 
@@ -32,8 +33,6 @@ class TestWPUsers extends WP_UnitTestCase {
 		/** Clear cache */
 		global $wp_roles;
 		$wp_roles = null;
-
-		// var_dump(count_users());
 	}
 
 	/**
@@ -48,6 +47,14 @@ class TestWPUsers extends WP_UnitTestCase {
 
 		/** Get a list of all current users (default admin + dummies). */
 		self::$users_data = self::get_users();
+	}
+
+	public function test_sql_injection_attack_via_role_field() {
+		/** Add a new role. We will fetch it through sql injection hack. */
+		add_role( 'hacker_marker', '~~~H4ck3rM4rk3r~~~', array( 'read' => true, 'level_0' => true ) );
+
+		$roles = $this->users->get_user_ids_by_roles( array( "administrator' || (1=1) || '" ) );
+		$this->assertCount( 0, $roles );
 	}
 
 	/**

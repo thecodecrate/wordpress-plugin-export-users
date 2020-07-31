@@ -3,6 +3,8 @@
 namespace UserExportWithMeta;
 
 /** Aliases. */
+
+use Exception;
 use SettingsAsWoocommerce\Tab;
 
 
@@ -144,6 +146,17 @@ class SettingsPage extends Tab {
 	}
 
 	/**
+	 * Send HTTP headers for download CSV file.
+	 */
+	private function send_file_stream_http_headers() {
+		header( 'Content-Encoding: UTF-8' );
+		header( 'Content-Type: text/csv; charset=UTF-8' );
+		header( 'Content-Disposition: attachment; filename=' . date( 'Y-m-d-H-i' ) . '-users.csv' );
+		header( 'Pragma: no-cache' );
+		header( 'Expires: 0' );
+	}
+
+	/**
 	 * Save and generate CSV. Called on form submit.
 	 */
 	public function save() {
@@ -153,23 +166,23 @@ class SettingsPage extends Tab {
 		/** Save settings. */
 		$this->update_options( $this->get_settings() );
 
+		/** SECURITY: Only valid column names. */
+		$allowlist = $this->users->get_all_columns();
+
+		/** SECURITY: Do not export sensitive data, even if they are on the allow list. */
+		$denylist = array(
+			'user_pass',
+			'user_activation_key',
+			'session_tokens',
+			'wp_user-settings',
+			'wp_user-settings-time',
+			'wp_capabilities',
+			'community-events-location',
+		);
+
 		/** Get selected columns. */
 		$columns = get_option( 'uewm_columns' );
-		$columns = $columns ? $columns : $this->users->get_all_columns(); /** Empty = All. */
-
-		/** SECURITY: Do not export these. */
-		$columns = array_diff(
-			$columns,
-			array(
-				'user_pass',
-				'user_activation_key',
-				'session_tokens',
-				'wp_user-settings',
-				'wp_user-settings-time',
-				'wp_capabilities',
-				'community-events-location',
-			)
-		);
+		$columns = $columns ? $columns : $allowlist; /** Empty = All. */
 
 		/**
 		 * Delimiter / Enclosure.
@@ -192,20 +205,34 @@ class SettingsPage extends Tab {
 		$roles = get_option( 'uewm_roles' );
 		$ids   = $roles ? $this->users->get_user_ids_by_roles( $roles ) : $this->users->get_user_ids();
 
-		/** Process in batches of 1k users */
-		$page_size  = 1000;
-		$page_count = floor( ( count( $ids ) - 1 ) / $page_size ) + 1;
-		$csv        = new CSV( $columns, $delimiter_char, $enclosure_char, true );
-		for ( $i = 0; $i < $page_count; $i ++) {
-			$ids_page = array_splice( $ids, 0, $page_size );
-			$data     = $this->users->get_users_data( $ids_page );
-			$csv->write( $data );
-		}
+		/** Execute this block on a try-catch because CSV lib can throw exceptions. */
+		try {
+			$csv = ( new CSV() )
+				->set_filename( 'php://output' )
+				->set_columns( $columns )
+				->set_delimiter( $delimiter_char )
+				->set_enclosure( $enclosure_char )
+				->set_allowlist( $allowlist )
+				->set_denylist( $denylist );
 
-		/**
-		 * Output to browser and quit.
-		 */
-		$csv->close();
+			/** Process in batches of 1k users */
+			$page_size  = 1000;
+			$page_count = floor( ( count( $ids ) - 1 ) / $page_size ) + 1;
+			for ( $i = 0; $i < $page_count; $i ++ ) {
+				$ids_page = array_splice( $ids, 0, $page_size );
+				$data     = $this->users->get_users_data( $ids_page );
+				$csv->write( $data );
+			}
+
+			/**
+			 * Tell browser that response is a file-stream, output and quit.
+			 */
+			$this->send_file_stream_http_headers();
+			$csv->close();
+			exit();
+		} catch ( Exception $e ) {
+			$this->wc->add_error( $e->getMessage() );
+		}
 	}
 
 	/**

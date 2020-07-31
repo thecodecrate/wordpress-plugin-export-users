@@ -5,7 +5,7 @@
 **Tags:** users, export, meta  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4.2  
-**Stable tag:** 0.6.4  
+**Stable tag:** 0.6.5  
 **License:** MIT  
 **License URI:** https://opensource.org/licenses/MIT  
 
@@ -34,6 +34,10 @@ This plugin is protected against this vulnerability since version 0.5.0.
 
 
 ## Changelog ##
+
+### 0.6.5 ###
+* [Bug] Fix security issues.
+* [Patch] Add tests for CSV library.
 
 ### 0.6.4 ###
 * [Bug] CSV with no data (but with the headers) when DB prefix is not "wp_".

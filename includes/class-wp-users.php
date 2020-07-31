@@ -114,7 +114,7 @@ class WPUsers {
 		/** Get user IDs by their roles. */
 		$role_statements = array();
 		foreach ( $roles as $role ) {
-			$value             = serialize( $role );
+			$value             = serialize( esc_sql( $role ) );
 			$role_statements[] = "meta_value LIKE '%{$value}%'";
 		}
 		$role_statements = join( ' OR ', $role_statements );
