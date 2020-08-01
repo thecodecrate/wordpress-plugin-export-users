@@ -21,7 +21,7 @@ module.exports = function( grunt ) {
 
 		wp_readme_to_markdown: {
 			options: {
-				screenshot_url: '/assets/{screenshot}.png'
+				screenshot_url: 'https://ps.w.org/user-export-with-their-meta-data/assets/{screenshot}.png'
 			},
 			your_target: {
 				files: {
@@ -51,20 +51,37 @@ module.exports = function( grunt ) {
 			default_options: {
 			  files: [
 				{
-				  prepend: "![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/user-export-with-their-meta-data) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/user-export-with-their-meta-data) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/Deploy%20to%20WordPress.org/badge.svg?tag=latest)](https://github.com/loureirorg/wordpress-plugin-export-users/actions) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/CI/badge.svg?branch=master)](https://github.com/loureirorg/wordpress-plugin-export-users/actions)\n\n",
-				  input: 'README.md',
-				}
+					prepend: "![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/user-export-with-their-meta-data) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/user-export-with-their-meta-data) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/deploy%20to%20wordpress.org/badge.svg?tag=latest)](https://github.com/loureirorg/wordpress-plugin-export-users/actions) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/build/badge.svg?branch=master)](https://github.com/loureirorg/wordpress-plugin-export-users/actions)\n\n",
+					input: 'README.md',
+				},
+				{
+					prepend: "# Export Users With Meta #\n\n",
+					input: 'README.md',
+				},
 			  ]
 			}
-		  }
+		},
+
+		lineremover: {
+			customExclude: {
+				files: {
+					'README.md': 'README.md'
+				},
+				options: {
+					exclusionPattern: "# Export Users With Meta #"
+				}
+			},
+		}
+
 	} );
 
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
 	grunt.loadNpmTasks( 'grunt-file-append' );
+        grunt.loadNpmTasks('grunt-line-remover');
 	grunt.registerTask( 'default', [ 'i18n','readme' ] );
 	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
-	grunt.registerTask( 'readme', ['wp_readme_to_markdown', 'file_append'] );
+	grunt.registerTask( 'readme', ['wp_readme_to_markdown', 'lineremover', 'file_append'] );
 
 	grunt.util.linefeed = '\n';
 

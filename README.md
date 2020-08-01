@@ -1,6 +1,7 @@
-![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/user-export-with-their-meta-data) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/user-export-with-their-meta-data) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/Deploy%20to%20WordPress.org/badge.svg?tag=latest)](https://github.com/loureirorg/wordpress-plugin-export-users/actions) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/CI/badge.svg?branch=master)](https://github.com/loureirorg/wordpress-plugin-export-users/actions)
-
 # Export Users With Meta #
+
+![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/user-export-with-their-meta-data) ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/user-export-with-their-meta-data) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/deploy%20to%20wordpress.org/badge.svg?tag=latest)](https://github.com/loureirorg/wordpress-plugin-export-users/actions) [![Actions Status](https://github.com/loureirorg/wordpress-plugin-export-users/workflows/build/badge.svg?branch=master)](https://github.com/loureirorg/wordpress-plugin-export-users/actions)
+
 **Contributors:** [loureirorg](https://profiles.wordpress.org/loureirorg)  
 **Tags:** users, export, meta  
 **Requires at least:** 4.5  
@@ -30,7 +31,7 @@ This plugin is protected against this vulnerability since version 0.5.0.
 ## Screenshots ##
 
 ### 1. Exporting users. ###
-![Exporting users.](/assets/screenshot-1.png)
+![Exporting users.](https://ps.w.org/user-export-with-their-meta-data/assets/screenshot-1.png)
 
 
 ## Changelog ##
