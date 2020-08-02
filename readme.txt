@@ -134,3 +134,4 @@ This plugin is protected against this vulnerability since version 0.5.0.
 
 = 0.1.0 =
 * First Version.
+
