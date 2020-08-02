@@ -7,7 +7,7 @@
 **Requires PHP:** 5.6  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4.2  
-**Stable tag:** 0.6.5  
+**Stable tag:** 0.6.6  
 **Donate link:** https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5MU4TWJB6SLQ4&item_name=%22Export+Users%22+Priority+Support&currency_code=USD&amount=5&source=url  
 **License:** MIT  
 **License URI:** https://opensource.org/licenses/MIT  
@@ -37,6 +37,9 @@ This plugin is protected against this vulnerability since version 0.5.0.
 
 
 ## Changelog ##
+
+### 0.6.6 ###
+* [Patch] Add a "donate link" and a "PHP minimum" to readme.txt.
 
 ### 0.6.5 ###
 * [Bug] Fix security issues.
