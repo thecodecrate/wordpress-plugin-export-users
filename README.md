@@ -8,7 +8,7 @@
 **Requires at least:** 4.5  
 **Tested up to:** 5.4.2  
 **Stable tag:** 0.6.6  
-**Donate link:** https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5MU4TWJB6SLQ4&item_name=%22Export+Users%22+Priority+Support&currency_code=USD&amount=5&source=url  
+**Donate link:** https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5MU4TWJB6SLQ4&item_name=User+Export+Plugin+Donation&currency_code=USD&amount=5&source=url  
 **License:** MIT  
 **License URI:** https://opensource.org/licenses/MIT  
 
@@ -18,23 +18,36 @@ Export Users to CSV file (with their meta data).
 
 A very simple plugin to export users to a CSV file. It exports the user's meta data too.
 
+## Screenshots ##
+
+### 1. Exporting users. ###
+![Exporting users.](https://ps.w.org/user-export-with-their-meta-data/assets/screenshot-1.png)
+
+
+
+## Support ##
+It can take up to 15 days to reply to you. Sometimes even more. Due to my daytime job and personal projects I'm involved with, I can only take a look at the support tickets on my spare time - usually every other weekend. Even the simpler questions take me at least 30 minutes to read, analize, and reply. Sorry in advance for the long time to get replied, I wish I could do more but unfortunately that's the best I can do for now.
+
 ## Installation ##
 
-1. Upload the plugin folder to the /wp-content/plugins/ directory.
-1. Activate the plugin through the Plugins menu in WordPress.
-1. Thats it! you can now configure the plugin.
+Use your WordPress Admin dashboard to install this plugin:
+`Plugins` > `Add Plugin` > `Search for "Export Users" by Daniel Loureiro`
+
+## GitHub Installation ##
+
+You can manually install this plugin through GitHub, although it is not recommended because you won't get the automatic updates:
+
+1. Go to <https://github.com/loureirorg/wordpress-plugin-export-users>;
+1. Clone the repository to your `wp-content/plugins`;
+1. Inside the cloned folder, run `composer install --no-dev` and `npm install --production`;
+1. Do not run `composer install` without the `--no-dev` option on a production server as it will install development libraries like phpunit, leading your server to be vulnerable to remote code execution attacks (RCE).;
+
 
 ## Frequently Asked Questions ##
 
 ### What about "Formula Injection" vulnerability? ###
 
 This plugin is protected against this vulnerability since version 0.5.0.
-
-## Screenshots ##
-
-### 1. Exporting users. ###
-![Exporting users.](https://ps.w.org/user-export-with-their-meta-data/assets/screenshot-1.png)
-
 
 ## Changelog ##
 
