@@ -111,6 +111,22 @@ class CSV {
 	}
 
 	/**
+	 * Last check before start sending data.
+	 *
+	 * @throws Exception If delimiter and enclosure are the same.
+	 *
+	 * @return Self Return self object, to be used on method chain.
+	 */
+	public function check_errors() {
+		/** Check if delimiter and enclosure are the same. */
+		if ( $this->delimiter_char === $this->enclosure_char ) {
+			throw new Exception( "Delimiter and Enclosure can't be the same." );
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Output header.
 	 * Auto-called on the first `write( $data )`.
 	 *
@@ -118,13 +134,10 @@ class CSV {
 	 * the settings anymore (columns, filename, bom, enclosure, delimiter).
 	 *
 	 * @throws Exception If delimiter and enclosure are the same.
-	 *
 	 */
 	private function output_header() {
-		/** Check if delimiter and enclosure are the same. */
-		if ( $this->delimiter_char === $this->enclosure_char ) {
-			throw new Exception( 'Delimiter and Enclosure are the same.' );
-		}
+		/** Last check before start sending data. */
+		$this->check_errors();
 
 		/** Open file for writing. */
 		$this->hnd = fopen( $this->filename, 'w' );

@@ -208,12 +208,18 @@ class SettingsPage extends Tab {
 		/** Execute this block on a try-catch because CSV lib can throw exceptions. */
 		try {
 			$csv = ( new CSV() )
-				->set_filename( 'php://output' )
-				->set_columns( $columns )
-				->set_delimiter( $delimiter_char )
-				->set_enclosure( $enclosure_char )
-				->set_allowlist( $allowlist )
-				->set_denylist( $denylist );
+			->set_filename( 'php://output' )
+			->set_columns( $columns )
+			->set_delimiter( $delimiter_char )
+			->set_enclosure( $enclosure_char )
+			->set_allowlist( $allowlist )
+			->set_denylist( $denylist )
+			->check_errors();
+
+			/**
+			 * Tell browser that response is a file-stream.
+			 */
+			$this->send_file_stream_http_headers();
 
 			/** Process in batches of 1k users */
 			$page_size  = 1000;
@@ -225,9 +231,8 @@ class SettingsPage extends Tab {
 			}
 
 			/**
-			 * Tell browser that response is a file-stream, output and quit.
+			 * Close stream and quit.
 			 */
-			$this->send_file_stream_http_headers();
 			$csv->close();
 			exit();
 		} catch ( Exception $e ) {
