@@ -29,7 +29,7 @@ A very simple plugin to export users to a CSV file. It exports the user's metada
 Use your WordPress Admin dashboard to install this plugin:
 `Plugins` > `Add Plugin` > `Search for "Export Users" by Daniel Loureiro`
 
-# GitHub Installation #
+### GitHub Installation ###
 
 You can manually install this plugin through GitHub, although it is not recommended because you won't get the automatic updates:
 
