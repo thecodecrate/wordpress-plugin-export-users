@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Clone the repo
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       # Prepare the release
       - run: |
           ls 
