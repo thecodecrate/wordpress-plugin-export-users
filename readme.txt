@@ -4,7 +4,7 @@ Tags: users, export, meta
 Requires PHP: 5.6
 Requires at least: 4.5
 Tested up to: 5.5.1
-Stable tag: 0.6.7
+Stable tag: 0.6.8
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5MU4TWJB6SLQ4&item_name=User+Export+Plugin+Donation&currency_code=USD&amount=5&source=url
 License: MIT
 License URI: https://opensource.org/licenses/MIT
@@ -41,6 +41,9 @@ You can manually install this plugin through GitHub, although it is not recommen
 This plugin is protected against this vulnerability since version 0.5.0.
 
 == Changelog ==
+
+= 0.6.8 =
+* [Patch] Tested up to WP 5.5.1.
 
 = 0.6.7 =
 * [Bug] `Headers already sent` Warning on some installations.
