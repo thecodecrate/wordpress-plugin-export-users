@@ -9,7 +9,7 @@
     "i18n": "grunt i18n"
   },
   "devDependencies": {
-    "grunt": "^1.1.0",
+    "grunt": "^1.3.0",
     "grunt-file-append": "0.0.7",
     "grunt-line-remover": "0.0.2",
     "grunt-wp-i18n": "~1.0.3",
