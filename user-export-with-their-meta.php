@@ -7,7 +7,7 @@
  * Author URI:      https://learnwithdaniel.com/
  * Text Domain:     uewm
  * Domain Path:     /languages
- * Version:         0.6.9
+ * Version:         0.6.10
  *
  * The entrypoint for this plugin is on "src/Main.php".
  */

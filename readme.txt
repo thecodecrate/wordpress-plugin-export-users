@@ -4,7 +4,7 @@ Tags: users, export, meta
 Requires PHP: 7.4
 Requires at least: 4.5
 Tested up to: 6.1.1
-Stable tag: 0.6.9
+Stable tag: 0.6.10
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5MU4TWJB6SLQ4&item_name=User+Export+Plugin+Donation&currency_code=USD&amount=5&source=url
 License: MIT
 License URI: https://opensource.org/licenses/MIT
@@ -41,6 +41,9 @@ You can manually install this plugin through GitHub, although it is not recommen
 This plugin is protected against this vulnerability since version 0.5.0.
 
 == Changelog ==
+
+= 0.6.10 =
+* [Chore] Remove testing library from production code
 
 = 0.6.9 =
 * [Bug] Fix formula injection vulnerability
