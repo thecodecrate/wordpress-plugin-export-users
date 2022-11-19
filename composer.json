@@ -5,7 +5,7 @@
         }
     },
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|8.0|8.1",
         "loureirorg/settings-as-woocommerce": "~0.0.3",
         "league/csv": "^9.8",
         "fakerphp/faker": "^1.20"
