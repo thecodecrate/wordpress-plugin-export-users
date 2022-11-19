@@ -1,4 +1,10 @@
 {
     "phpcs.standard": "WordPress",
-    "phpcs.executablePath": "/home/daniel/.config/composer/vendor/bin/phpcs"
+    "phpcs.executablePath": "/home/daniel/.config/composer/vendor/bin/phpcs",
+    "intelephense.environment.documentRoot": "../../../",
+    "intelephense.environment.phpVersion": "7.4",
+    "intelephense.environment.includePaths": [
+        "../../../wp-includes",
+        "../../../wp-admin"
+    ]
 }

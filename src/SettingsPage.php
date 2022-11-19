@@ -5,8 +5,12 @@ namespace UserExportWithMeta;
 /** Aliases. */
 
 use Exception;
+use League\Csv\EncloseField;
+use League\Csv\EscapeFormula;
+use League\Csv\Writer;
 use SettingsAsWoocommerce\Tab;
-
+use SplFileObject;
+use SplTempFileObject;
 
 /**
  * Class SettingsPage.
@@ -28,7 +32,7 @@ class SettingsPage extends Tab {
 		$this->label = 'Export Users to CSV';
 
 		/** Code for dealing with User records is on a separated class. */
-		$this->users = new WPUsers();
+		$this->users = new Users();
 
 		/** Add custom field type. */
 		add_action( 'uewm_settings_admin_field_select_with_text', array( $this, 'select_with_text' ) );
@@ -146,95 +150,86 @@ class SettingsPage extends Tab {
 	}
 
 	/**
-	 * Send HTTP headers for download CSV file.
-	 */
-	private function send_file_stream_http_headers() {
-		header( 'Content-Encoding: UTF-8' );
-		header( 'Content-Type: text/csv; charset=UTF-8' );
-		header( 'Content-Disposition: attachment; filename=' . date( 'Y-m-d-H-i' ) . '-users.csv' );
-		header( 'Pragma: no-cache' );
-		header( 'Expires: 0' );
-	}
-
-	/**
 	 * Save and generate CSV. Called on form submit.
 	 */
 	public function save() {
-		/** Load "user" core functions. */
-		require_once ABSPATH . 'wp-admin/includes/user.php';
-
-		/** Save settings. */
-		$this->update_options( $this->get_settings() );
-
-		/** SECURITY: Only valid column names. */
-		$allowlist = $this->users->get_all_columns();
-
-		/** SECURITY: Do not export sensitive data, even if they are on the allow list. */
-		$denylist = array(
-			'user_pass',
-			'user_activation_key',
-			'session_tokens',
-			'wp_user-settings',
-			'wp_user-settings-time',
-			'wp_capabilities',
-			'community-events-location',
-		);
-
-		/** Get selected columns. */
-		$columns = get_option( 'uewm_columns' );
-		$columns = $columns ? $columns : $allowlist; /** Empty = All. */
-
-		/**
-		 * Delimiter / Enclosure.
-		 */
-		$delimiter_char      = null;
-		$enclosure_char      = null;
-		$has_custom_settings = get_option( 'uewm_use_custom_csv_settings' );
-		if ( 'yes' === $has_custom_settings ) {
-			$delimiter_char = get_option( 'uewm_field_separator' );
-			$enclosure_char = get_option( 'uewm_text_qualifier' );
-			if ( 'custom' === $delimiter_char ) {
-				$delimiter_char = get_option( 'uewm_custom_field_separator' );
-			}
-			if ( 'custom' === $enclosure_char ) {
-				$enclosure_char = get_option( 'uewm_custom_text_qualifier' );
-			}
-		}
-
-		/** Get selected users (ids). */
-		$roles = get_option( 'uewm_roles' );
-		$ids   = $roles ? $this->users->get_user_ids_by_roles( $roles ) : $this->users->get_user_ids();
-
 		/** Execute this block on a try-catch because CSV lib can throw exceptions. */
 		try {
-			$csv = ( new CSV() )
-			->set_filename( 'php://output' )
-			->set_columns( $columns )
-			->set_delimiter( $delimiter_char )
-			->set_enclosure( $enclosure_char )
-			->set_allowlist( $allowlist )
-			->set_denylist( $denylist )
-			->check_errors();
+			/** Save settings. */
+			$this->update_options( $this->get_settings() );
+
+			/** SECURITY: Only valid column names. */
+			$allowlist = $this->users->get_all_columns();
+
+			/** SECURITY: Do not export sensitive data, even if they are on the allow list. */
+			$denylist = array(
+				'user_pass',
+				'user_activation_key',
+				'session_tokens',
+				'wp_user-settings',
+				'wp_user-settings-time',
+				'wp_capabilities',
+				'community-events-location',
+			);
+
+			/** Get selected columns. */
+			$columns = get_option( 'uewm_columns' );
+			$columns = $columns ? $columns : $allowlist; /** Empty = All. */
+
+			/** Filter columns. */
+			$columns = array_intersect( $columns, $allowlist );
+			$columns = array_diff( $columns, $denylist );
 
 			/**
-			 * Tell browser that response is a file-stream.
+			 * Delimiter / Enclosure.
 			 */
-			$this->send_file_stream_http_headers();
+			$delimiter_char      = null;
+			$enclosure_char      = null;
+			$has_custom_settings = get_option( 'uewm_use_custom_csv_settings' );
+			if ( 'yes' === $has_custom_settings ) {
+				$delimiter_char = get_option( 'uewm_field_separator' );
+				$enclosure_char = get_option( 'uewm_text_qualifier' );
+				if ( 'custom' === $delimiter_char ) {
+					$delimiter_char = get_option( 'uewm_custom_field_separator' );
+				}
+				if ( 'custom' === $enclosure_char ) {
+					$enclosure_char = get_option( 'uewm_custom_text_qualifier' );
+				}
+			}
+			$enclosure_char = $enclosure_char ? $this->getCharByName( $enclosure_char ) : '"';
+			$delimiter_char = $delimiter_char ? $this->getCharByName( $delimiter_char ) : ',';
+
+			/** Get selected users (ids). */
+			$roles = get_option( 'uewm_roles' );
+			$ids   = $roles ? $this->users->get_user_ids_by_roles( $roles ) : $this->users->get_user_ids();
+
+			$csv = (Writer::createFromStream(tmpfile()))
+				->setDelimiter( $delimiter_char )
+				->setEnclosure( $enclosure_char )
+				->setEscape('\\')
+				->addFormatter(new EscapeFormula('`'));
+
+			EncloseField::addTo($csv, "\t\x1f");
+
+			$csv->insertOne( $columns );
 
 			/** Process in batches of 1k users */
 			$page_size  = 1000;
 			$page_count = floor( ( count( $ids ) - 1 ) / $page_size ) + 1;
 			for ( $i = 0; $i < $page_count; $i ++ ) {
 				$ids_page = array_splice( $ids, 0, $page_size );
-				$data     = $this->users->get_users_data( $ids_page );
-				$csv->write( $data );
+
+				$data = $this->users->get_users_data( $ids_page );
+
+				$csv_data = $this->get_csv_data( $data, $columns );
+
+				$csv->insertAll( $csv_data );
 			}
 
-			/**
-			 * Close stream and quit.
-			 */
-			$csv->close();
-			exit();
+			/** Close stream and quit. */
+			$csv->output(date( 'Y-m-d-H-i' ) . '-users.csv');
+
+			die();
 		} catch ( Exception $e ) {
 			$this->wc->add_error( $e->getMessage() );
 		}
@@ -284,5 +279,49 @@ class SettingsPage extends Tab {
 		echo '</span>';
 
 		echo '</td></tr>';
+	}
+
+	protected function get_csv_data( $data, $columns ) {
+		$result = array();
+
+		foreach ( $data as $row ) {
+			$output_row = array();
+
+			/** Add missing columns to the row. */
+			foreach ( $columns as $column_name ) {
+				$output_row[] = array_key_exists( $column_name, $row )
+					? $row[ $column_name ]
+					: '';
+			}
+
+			$result[] = $output_row;
+		}
+
+		return $result;
+	}
+
+	protected function getCharByName($name) {
+		/** Predefined options. */
+		$predefined_options = array(
+			'comma'     => ',',
+			'semicolon' => ';',
+			'tab'       => "\t",
+			'space'     => ' ',
+			'double-quote' => '"',
+			'quote'        => "'",
+		);
+
+		/** [SECURITY] "=+-@" are not allowed! */
+		$regex = '/^[\=\+\-\@](.*)$/';
+		if ( 1 === preg_match( $regex, $name ) ) {
+			throw new Exception( 'These chars are not allowed: =+-@' );
+		}
+
+		/** Using a predefined value. */
+		if ( array_key_exists( $name, $predefined_options ) ) {
+			return $predefined_options[ $name ];
+		}
+
+		return $name;
 	}
 }

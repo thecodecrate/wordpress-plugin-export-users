@@ -1,21 +1,21 @@
 <?php
 namespace UserExportWithMeta;
 
-class WPUsers {
-	/**
-	 * Get all roles.
-	 *
-	 * @return array An associative array on format `[role_id] => role_name`.
-	 */
-	public function get_all_roles() {
-		$roles_object = get_editable_roles(); /** Get roles. */
+/** Load "user" core functions. */
+require_once ABSPATH . 'wp-admin/includes/user.php';
 
-		/** Convert role records to be used on select: `[key] => value`. */
-		$roles = array();
-		foreach ( $roles_object as $role_id => $role_object ) {
-			$roles[ $role_id ] = $role_object['name'];
+class Users {
+	public function get_all_roles() {
+
+		$return = [];
+
+		$roles = get_editable_roles();
+
+		foreach ( $roles as $role_id => $role_object ) {
+			$return[ $role_id ] = $role_object['name'];
 		}
-		return $roles;
+
+		return $return;
 	}
 
 	/**

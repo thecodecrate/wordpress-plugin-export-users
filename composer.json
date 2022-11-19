@@ -1,4 +1,9 @@
 {
+    "autoload": {
+        "psr-4": {
+            "UserExportWithMeta\\": "src/"
+        }
+    },
     "require": {
         "php": ">=7.4",
         "loureirorg/settings-as-woocommerce": "~0.0.3",
