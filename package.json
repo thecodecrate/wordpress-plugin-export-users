@@ -9,11 +9,10 @@
     "i18n": "grunt i18n"
   },
   "devDependencies": {
-    "grunt": "^1.1.0",
-    "grunt-file-append": "0.0.7",
-    "grunt-line-remover": "0.0.2",
-    "grunt-wp-i18n": "~1.0.3",
-    "grunt-wp-readme-to-markdown": "~2.0.1"
+    "grunt": "^1.5.3",
+    "grunt-file-append": "^0.0.7",
+    "grunt-wp-i18n": "^1.0.3",
+    "grunt-wp-readme-to-markdown": "^2.1.0"
   },
   "dependencies": {
     "select2": "^4.0.13"

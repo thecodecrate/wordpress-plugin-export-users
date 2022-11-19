@@ -61,27 +61,15 @@ module.exports = function( grunt ) {
 			  ]
 			}
 		},
-
-		lineremover: {
-			customExclude: {
-				files: {
-					'README.md': 'README.md'
-				},
-				options: {
-					exclusionPattern: "# Export Users With Meta #"
-				}
-			},
-		}
-
 	} );
 
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
 	grunt.loadNpmTasks( 'grunt-file-append' );
-        grunt.loadNpmTasks('grunt-line-remover');
+	// grunt.loadNpmTasks('grunt-line-remover');
 	grunt.registerTask( 'default', [ 'i18n','readme' ] );
 	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
-	grunt.registerTask( 'readme', ['wp_readme_to_markdown', 'lineremover', 'file_append'] );
+	grunt.registerTask( 'readme', ['wp_readme_to_markdown', 'file_append'] );
 
 	grunt.util.linefeed = '\n';
 
